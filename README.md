@@ -7,7 +7,9 @@
 - เอเย่นต์ **HAL / HAC / HAS** → **HUL** (เฉพาะตำแหน่งเอเย่นต์ ส่วนอื่นของบรรทัดคงเดิมทุกตัวอักษร)
 - เลือก HUL ที่จะเก็บ: **LCH**, **BKK** หรือทั้งสองท่า
 - **Agent อื่น เช่น SKR, KMD, EMC ตัดทิ้งเสมอ** · ท่าอื่น เช่น SGN ตัดทิ้งเสมอ
-- ตู้ **RF** ลด TEMP 1 ตำแหน่ง: `RF20135F   -250C` → `RF20135F   -25C` (เติมช่องว่าง คอลัมน์อื่นไม่เลื่อน)
+- ตู้เย็น (**RF / 22RE / 45RE**) ลด TEMP 1 ตำแหน่ง: `RF20135F   -250C` → `RF20135F   -25C`,
+  `22RE238F   -180C` → `22RE238F   -18C` (เติมช่องว่าง คอลัมน์อื่นไม่เลื่อน)
+- ตู้ที่เป็น **HUL อยู่แล้ว** แก้ TEMP อย่างเดียว
 - บรรทัดหัวไฟล์ `$604` / `$600` คงเดิม
 - ตั้งแต่บรรทัด `***Refer to the following remark.` / `***Refer to the following IMDG.` จนจบไฟล์ คงเดิม
 - ชื่อไฟล์ที่ได้ = ชื่อต้นฉบับ + `_HUL_` + ท่า เช่น `KHS1_2612S_KRUSN_SWIC_HUL_BKK-LCH.asc`
@@ -34,4 +36,4 @@ python bayplan_hul.py . --ports LCH,BKK
 
 ## วิธีใช้ 3: skill ของ Claude
 
-พิมพ์ `bayplan HUL เก็บ LCH BKK` ไฟล์ skill อยู่ที่ `skill/bayplan-hul/SKILL.md`
+วางไฟล์ .asc ไว้ใน `input/` แล้วพิมพ์ `bayplan input` (หรือ `bayplan HUL เก็บ LCH BKK`, `bayplan input เก็บ LCH`) ไฟล์ skill อยู่ที่ `skill/bayplan-hul/SKILL.md`

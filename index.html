@@ -106,7 +106,7 @@ mark { background: var(--hit); color: inherit; }
       <label class="fld-lb" for="agents">เอเย่นต์ที่เปลี่ยนเป็น HUL</label>
       <input type="text" id="agents" value="HAL,HAC,HAS,HUL" autocomplete="off" spellcheck="false">
     </div>
-    <p class="note">HAL / HAC / HAS → HUL · RF ลด TEMP 1 ตำแหน่ง (-250C → -25C) · ตั้งแต่บรรทัด ***Refer to the following remark. / IMDG คงเดิม · ประมวลผลในเบราว์เซอร์ ไม่มีการอัปโหลดไฟล์</p>
+    <p class="note">HAL / HAC / HAS → HUL · ตู้เย็น (RF / 22RE / 45RE) ลด TEMP 1 ตำแหน่ง (-250C → -25C) รวมตู้ที่เป็น HUL อยู่แล้ว · ตั้งแต่บรรทัด ***Refer to the following remark. / IMDG คงเดิม · ประมวลผลในเบราว์เซอร์ ไม่มีการอัปโหลดไฟล์</p>
   </div>
 
   <div class="card">
@@ -129,7 +129,8 @@ const REMARK_START = "***Refer to the following remark.";
 const isContainer = l => /^\d{6} [A-Z]{4}\d{7} /.test(l);
 const agentOf = l => l.substr(19, 3);
 const portOf  = l => l.substr(30, 3);          // PUSBKK -> BKK
-const isReefer = l => l.substr(44, 2) === "RF";   // type code at col 45
+// reefer = a temperature after the type code (RF20135F, 22RE238F, 45RE331F …)
+const isReefer = l => /^\s*-?\d+[CF]/.test(l.slice(52, 80));
 
 // -250C -> -25C (keeps width by padding one space after C)
 function fixTemp(line) {
@@ -199,7 +200,7 @@ if (typeof document !== "undefined") {
     const portTxt = Object.entries(s.byPort).map(([p, n]) => `${p} ${n}`).join(" · ") || "-";
     $("stats").innerHTML = [
       [s.total, "ตู้ในไฟล์ต้นฉบับ", ""], [s.kept, "ตู้ที่เก็บไว้ (HUL)", "ok"],
-      [s.dropped, "ตู้ที่ตัดทิ้ง", "warn"], [s.reefer, "RF ที่ลด TEMP", ""], [portTxt, "แยกตามท่า", ""]
+      [s.dropped, "ตู้ที่ตัดทิ้ง", "warn"], [s.reefer, "ตู้เย็นที่ลด TEMP", ""], [portTxt, "แยกตามท่า", ""]
     ].map(([n, t, c]) => `<div class="stat"><div class="n ${c}">${n}</div><div class="t">${t}</div></div>`).join("");
     $("preview").innerHTML = result.lines.map((l, i) => {
       const m = result.marks[i];

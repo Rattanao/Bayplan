@@ -14,6 +14,7 @@ from pathlib import Path
 REMARK_START = "***Refer to the following remark."
 CONTAINER_RE = re.compile(r"^\d{6} [A-Z]{4}\d{7} ")
 TEMP_RE = re.compile(r"(-?\d+)\d([CF])")
+REEFER_RE = re.compile(r"\s*-?\d+[CF]")
 
 
 def agent_of(line):
@@ -46,7 +47,7 @@ def convert(text, agents, ports):
             st["dropped"] += 1
             continue
         new = line[:19] + "HUL" + line[22:]
-        if new[44:46] == "RF":  # reefer type code at col 45
+        if REEFER_RE.match(new[52:80]):  # temperature after the type code (RF20135F, 22RE238F …)
             fixed = fix_temp(new)
             if fixed != new:
                 st["reefer"] += 1
