@@ -76,7 +76,6 @@ button.sec { background: #2f7a4f; }
 button.sec:hover:not(:disabled) { background: #256340; }
 button.ghost { background: var(--card); color: var(--navy-text); border: 1.5px solid var(--navy-text); padding: 10.5px 20px; }
 button.ghost:hover:not(:disabled) { background: var(--bg); }
-button.clear { margin-left: auto; }
 button:focus-visible, .drop:focus-visible { outline: 2px solid var(--navy-text); outline-offset: 2px; }
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 14px; }
 .stat { background: var(--bg); border-radius: 8px; padding: 10px 12px; border-left: 4px solid var(--navy); }
@@ -121,9 +120,7 @@ mark { background: var(--hit); color: inherit; }
     <div class="row">
       <button id="save" class="sec" disabled>บันทึกไฟล์</button>
       <button id="copy" class="ghost" disabled>คัดลอกข้อความ</button>
-      <span id="msg" class="msg"></span>
-      <button id="clear" class="ghost clear">เคลียร์ข้อมูล</button>
-    </div>
+      <span id="msg" class="msg"></span>    </div>
     <p class="note">ไฮไลต์ = ส่วนที่ถูกแก้ (รหัสเอเย่นต์ / TEMP) บรรทัดอื่นเหมือนต้นฉบับทุกตัวอักษร</p>
     <div class="out"><pre id="preview">ยังไม่ได้เลือกไฟล์</pre></div>
   </div>
@@ -263,7 +260,6 @@ if (typeof document !== "undefined") {
     $("save").disabled = $("copy").disabled = $("clearFiles").disabled = true; $("msg").textContent = "";
     renderPorts();
   }
-  $("clear").addEventListener("click", clearAll);
   $("clearFiles").addEventListener("click", clearAll);
 
   renderPorts();
