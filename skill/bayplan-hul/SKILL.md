@@ -37,6 +37,8 @@ Container line columns (1-based): bay 1-6 · container 8-18 · **agent 20-22** �
   temperature in the field after the type code, sometimes 2 columns further right): the temperature
   loses one digit, padded with a space so the columns stay put:
   `RF20135F   -250C  ` → `RF20135F   -25C   `, `-180C` → `-18C`, `50C` → `5C`, `70C` → `7C`.
+  Some files put `RF` before the temperature: `RF20238F RF-200C` → `RF20238F RF-20C`,
+  `RF  30C` → `RF  3C`. A one-digit `0C` (`RF   0C`) stays as is.
 - **A line that is HUL already**: only the temperature changes (if it is a reefer), e.g.
   `SEKU9002610 HUL     SGNBKK           22RE238F   -180C` → `… 22RE238F   -18C`.
 - POL/POD can start with any port (`PUSBKK`, `SGNBKK`, `SGNLCH` …); only the last 3 letters
@@ -52,6 +54,8 @@ Checked on KHS1_2612S: 860 containers → 103 kept (LCH 60, BKK 43, matching the
 757 cut, 1 RF temp changed (HALU2500578 -250C → -25C).
 Checked on HAHM2613S-SGN.ASC: 719 → 286 kept (BKK 145, LCH 141), 433 cut, 16 reefer temps
 changed (22RE / 45RE, all already HUL).
+Checked on SWVG2614S - VNSGN DEP.ASC: 775 → 90 HAS kept (BKK 54, LCH 36), 685 cut, 7 reefer
+temps changed (RF-prefixed: RF-200C → RF-20C …; RF   0C unchanged).
 
 ## Input
 

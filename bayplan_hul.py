@@ -14,7 +14,7 @@ from pathlib import Path
 REMARK_START = "***Refer to the following remark."
 CONTAINER_RE = re.compile(r"^\d{6} [A-Z]{4}\d{7} ")
 TEMP_RE = re.compile(r"(-?\d+)\d([CF])")
-REEFER_RE = re.compile(r"\s*-?\d+[CF]")
+REEFER_RE = re.compile(r"\s*(RF)?\s*-?\d+[CF]")  # "-250C", "RF-200C", "RF  30C"
 
 
 def agent_of(line):
